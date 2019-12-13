@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "env_e2e_2p7/bin/python",
+    "git.ignoreLimitWarning": true
+}

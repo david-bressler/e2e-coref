@@ -1,0 +1,6 @@
+{
+  "clusters": [],
+  "doc_key": "nw",
+  "sentences": [["This", "is", "the", "first", "sentence", "."], ["This", "is", "the", "second", "."]],
+  "speakers": [["spk1", "spk1", "spk1", "spk1", "spk1", "spk1"], ["spk2", "spk2", "spk2", "spk2", "spk2"]]
+}

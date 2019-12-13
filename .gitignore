@@ -1,0 +1,13 @@
+env_e2e_2p7
+e2e-coref.tgz
+words_dictionary.json
+*.pyc
+*.so
+*.jsonlines
+logs
+conll-2012
+char_vocab*.txt
+glove*.txt
+glove*.txt.filtered
+*.v*_*_conll
+*.hdf5
