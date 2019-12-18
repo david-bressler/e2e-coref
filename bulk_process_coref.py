@@ -137,36 +137,67 @@ class Bulk_Coref:
         body= re.sub('(\.)([A-Z\'\"](?!\.))', r'\1 \2', body) #correct missing space bw period and Capital letter (or quote) starting new sentence
         return body
 
-    def per_article(self, f, docnum):
-        # text=f[docnum]["body"]
-        print("docnum = " + str(docnum))
+    def per_article_proc(self,input_doc):
         try:
-            text = f[docnum]["meta"].values()[0]["norm_text"]["body"]
+            text = input_doc["meta"].values()[0]["norm_text"]["body"]
         except:
-            text=f[docnum]["body"]
+            text=input_doc["body"]
         text = self.normalize_article_dwb(text)
-
         spell_checker = self.correct_spaces(text)
         if float(spell_checker[0]) / float(len(text.split())) > 0.005:
             print(text)
             text = spell_checker[1]
             print(text)
-
-        f[docnum]["preprocessed"] = text
-        # print_predictions(make_predictions(text, model))
+        input_doc["preprocessed"] = text
         if len(text)>20000:
             text=text[:20000]
         result = self.make_predictions(text)
         self.print_predictions(result)
-
-        f[docnum]["e2e_body"] = util.flatten(result["sentences"])
-        f[docnum]["predicted_clusters"] = result["predicted_clusters"]
+        flat_sentences=util.flatten(result["sentences"])
         clusters_words = []
         for cluster_ind, cluster in enumerate(result["predicted_clusters"]):
-            clusters_words.append([" ".join(f[docnum]["e2e_body"][m[0]:m[1] + 1]) for m in cluster])
-        f[docnum]["clusters_words"] = clusters_words
-
+            clusters_words.append([" ".join(flat_sentences[m[0]:m[1] + 1]) for m in cluster])
+        input_doc["e2e_body"]=flat_sentences
+        input_doc["predicted_clusters"] = result["predicted_clusters"]
+        input_doc["clusters_words"] = clusters_words
+        return input_doc
+    
+    def per_article(self, f, docnum):
+        print("docnum = " + str(docnum))
+        f[docnum]=self.per_article_proc(f[docnum])
         return f
+
+    # def per_article(self, f, docnum):
+    #     # text=f[docnum]["body"]
+    #     print("docnum = " + str(docnum))
+    #     input_doc=f[docnum]
+    #     try:
+    #         text = f[docnum]["meta"].values()[0]["norm_text"]["body"]
+    #     except:
+    #         text=f[docnum]["body"]
+    #     text = self.normalize_article_dwb(text)
+
+    #     spell_checker = self.correct_spaces(text)
+    #     if float(spell_checker[0]) / float(len(text.split())) > 0.005:
+    #         print(text)
+    #         text = spell_checker[1]
+    #         print(text)
+
+    #     f[docnum]["preprocessed"] = text
+    #     # print_predictions(make_predictions(text, model))
+    #     if len(text)>20000:
+    #         text=text[:20000]
+    #     result = self.make_predictions(text)
+    #     self.print_predictions(result)
+
+    #     f[docnum]["e2e_body"] = util.flatten(result["sentences"])
+    #     f[docnum]["predicted_clusters"] = result["predicted_clusters"]
+    #     clusters_words = []
+    #     for cluster_ind, cluster in enumerate(result["predicted_clusters"]):
+    #         clusters_words.append([" ".join(f[docnum]["e2e_body"][m[0]:m[1] + 1]) for m in cluster])
+    #     f[docnum]["clusters_words"] = clusters_words
+
+    #     return f
 
     def main(self,the_dic,n_articles):
         f = the_dic["results"]
