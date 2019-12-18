@@ -1,3 +1,7 @@
+# David Bressler's guide to getting coref code up and running:
+
+
+
 # Higher-order Coreference Resolution with Coarse-to-fine Inference
 
 ## Introduction
