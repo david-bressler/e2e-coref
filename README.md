@@ -15,8 +15,8 @@
 - #Now, input should be .json file, with a field called 'results', which contains a list of dictionaries containing the articles that you want processed in the "body" field
 - #E.g. if you have two articles you want processed, when the json is loaded as 'the_dic', the article text should be here the_dic['results'][0]['body'] and here the_dic['results'][1]['body']
 - #Then edit run_bulk_coref.py with the following:
--    #runtypea=0
--    #namea= 'your_entity' # e.g. if your json file is 'Tesla.json', this line should be namea='Tesla'
+- runtypea=0
+- namea= 'your_entity' # e.g. if your json file is 'Tesla.json', this line should be namea='Tesla'
 - #The output is a json file (e.g. 'Tesla_coref.json'), which contains fields for 'e2e_body', 'predicted_clusters', and 'clusters_words'
 - #'e2e_body' is the tokenized version of your input text
 - #'predicted_clusters' contains the indices into e2e_body for each of the detected coref chains
