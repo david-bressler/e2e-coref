@@ -16,11 +16,11 @@ import pickle
     # 'Smuggling'        ,\
     # 'Stolen_Property' ]
 
-run_typea=2
+run_typea=0
 
 if run_typea==0: #single at a time
 
-    namea='Stolen_Property' #'drug_traffick'
+    namea='rick_sollars' #'drug_traffick'
     print(namea)
     open_filename = '/home/projects/data/' + namea + '.json'
     save_filename = '/home/projects/data/' + namea + '_coref.json'
@@ -74,7 +74,17 @@ elif run_typea==2: #microservices simulation
     with open(open_filename, 'r') as f:
         the_dic = json.loads(f.read())
     # Get single document data:
-    input_doc=the_dic['results'][0]
+    input_doc0=the_dic['results'][0]
+    input_doc1=the_dic['results'][1]
+    input_doc2=the_dic['results'][2]
+    input_doc3=the_dic['results'][3]
+    input_doc4=the_dic['results'][4]
     # Process single doc:
-    output_doc=coreffer.per_article_proc(input_doc)
+    start_time=time.time()
+    output_doc0=coreffer.per_article_proc(input_doc0)
+    output_doc1=coreffer.per_article_proc(input_doc1)
+    output_doc2=coreffer.per_article_proc(input_doc2)
+    output_doc3=coreffer.per_article_proc(input_doc3)
+    output_doc4=coreffer.per_article_proc(input_doc4)
+    print((time.time()-start_time)/5)
 
