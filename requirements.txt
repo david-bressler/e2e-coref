@@ -18,7 +18,7 @@ lazy-object-proxy==1.4.2
 Markdown==3.1.1
 mccabe==0.6.1
 mock==3.0.5
-nltk==3.4.4
+nltk==3.4.5
 numpy==1.16.4
 protobuf==3.9.0
 pyhocon==0.3.51
